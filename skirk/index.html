@@ -22,30 +22,23 @@
       -webkit-background-clip: text;
       display: inline-block;
       position: relative;
-    }
-
-    /* Bordure sur la police */
-    .container::before {
-      content: 'Skirk Incoming';
-      position: absolute;
-      top: 0;
-      left: 0;
-      color: transparent;
-      -webkit-background-clip: text;
-      background: linear-gradient(45deg, #9b59b6, #8e44ad, #6f42c1);
-      z-index: -1;
-      -webkit-text-stroke: 1px black; /* Bordure noire fine sur le texte */
+      -webkit-text-stroke: 1px black; /* Déplacé ici pour s'appliquer au texte principal */
     }
 
     /* Animation des trois points */
     .dots {
-      position: relative;
       display: inline-block;
+      margin-left: 5px;
     }
 
     .dot {
       opacity: 0;
       animation: fadeInOut 1.5s infinite ease-in-out;
+      color: transparent;
+      background: linear-gradient(45deg, #9b59b6, #8e44ad, #6f42c1);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-stroke: 1px black;
     }
 
     .dot:nth-child(1) {
@@ -73,11 +66,11 @@
 <body>
   <div class="container">
     Skirk Incoming
-    <div class="dots">
+    <span class="dots">
       <span class="dot">.</span>
       <span class="dot">.</span>
       <span class="dot">.</span>
-    </div>
+    </span>
   </div>
 </body>
 </html>
