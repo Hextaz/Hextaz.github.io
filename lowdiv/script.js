@@ -156,20 +156,18 @@ async function genererAffiche(division, block) {
   const tbodyOrig = original.querySelector('tbody');
   if (tbodyOrig) majPositions(tbodyOrig);
 
-  // Forcer la persistance de la sélection des <select> (cloneNode ne copie que les attributs, pas l'état runtime)
-  const originalSelects = [...original.querySelectorAll('select.team-select')];
-  originalSelects.forEach(sel => {
-    // Nettoyer attributs selected existants
-    [...sel.options].forEach(o => o.removeAttribute('selected'));
-    const opt = sel.selectedOptions[0];
-    if (opt) opt.setAttribute('selected','');
+  // Capturer les noms d'équipes sélectionnés avant clonage
+  const teamNames = new Map();
+  original.querySelectorAll('tbody tr').forEach((tr, index) => {
+    const select = tr.querySelector('select.team-select');
+    if (select && select.value) {
+      const option = [...select.options].find(opt => opt.value === select.value);
+      teamNames.set(index, option ? option.textContent : select.value);
+    }
   });
 
   // Clone pour export propre (sans selects / actions)
   const clone = original.cloneNode(true);
-  // Recopie de la valeur courante (sécurité supplémentaire) – après clonage
-  const cloneSelects = [...clone.querySelectorAll('select.team-select')];
-  cloneSelects.forEach((cSel, i) => { if (originalSelects[i]) cSel.value = originalSelects[i].value; });
   clone.classList.add('export-mode');
   clone.style.position = 'fixed';
   clone.style.left = '-3000px'; // hors écran
@@ -184,14 +182,13 @@ async function genererAffiche(division, block) {
     const lastTh = table.querySelector('thead th:last-child');
     if (lastTh) lastTh.remove();
     // Pour chaque ligne
-    table.querySelectorAll('tbody tr').forEach(tr => {
-      // Team select -> span (garder nom)
+    table.querySelectorAll('tbody tr').forEach((tr, index) => {
+      // Team select -> span (utiliser le nom capturé)
       const teamSelect = tr.querySelector('select.team-select');
       if (teamSelect) {
         const span = document.createElement('span');
         span.className = 'team-static-name';
-        const selected = teamSelect.options[teamSelect.selectedIndex];
-        span.textContent = teamSelect.value || (selected ? selected.textContent : '');
+        span.textContent = teamNames.get(index) || '';
         teamSelect.parentElement.replaceChild(span, teamSelect);
       }
       // MJ / PTS -> valeurs
