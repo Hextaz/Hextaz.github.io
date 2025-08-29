@@ -62,9 +62,21 @@ footer { text-align: center; padding: 2rem 1rem; font-size: .8rem; color: #777; 
 .poster-overlay { position: absolute; inset: 0; background: linear-gradient(160deg,rgba(0,0,0,.55),rgba(0,0,0,.3)); z-index: 0; }
 .poster-content { position: relative; z-index: 1; backdrop-filter: blur(.5px); }
 
-.poster-header { display: flex; flex-direction: column; gap: .35rem; }
-.poster-header h3 { font-size: 1.05rem; letter-spacing: .5px; text-transform: uppercase; }
-.poster-header .sous-titre { font-size: .75rem; font-weight: 500; opacity: .85; }
+.poster-header { display: flex; flex-direction: column; gap: .35rem; align-items: center; text-align: center; }
+.poster-header h3 { font-size: 1.4rem; letter-spacing: 1px; text-transform: uppercase; }
+.poster-header .sous-titre { font-size: .9rem; font-weight: 500; opacity: .85; }
+/* Mode export (affiche finale 1920x1080) */
+.poster-wrapper.export-mode { width: 1920px; height: 1080px; padding: 80px 120px 120px; border-radius: 0; }
+.poster-wrapper.export-mode .poster-header h3 { font-size: 3.2rem; }
+.poster-wrapper.export-mode .poster-header .sous-titre { font-size: 1.6rem; margin-top: .25rem; }
+.poster-wrapper.export-mode h4.division-titre { font-size: 2rem; margin: 2rem 0 1rem; text-align: center; }
+.poster-wrapper.export-mode table { font-size: 1rem; }
+.poster-wrapper.export-mode th { font-size: .75rem; }
+.poster-wrapper.export-mode td.position-col { font-size: 1rem; }
+.poster-wrapper.export-mode select.team-select, .poster-wrapper.export-mode input.stat-input { font-size: 1rem; padding: .45rem .55rem; }
+.poster-wrapper.export-mode .actions-col, .poster-wrapper.export-mode td.row-actions { display: none !important; }
+.poster-wrapper.export-mode .team-static-name { font-weight: 600; }
+
 
 table { width: 100%; border-collapse: collapse; font-size: .75rem; }
 thead { background: rgba(255,255,255,.08); }

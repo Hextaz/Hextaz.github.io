@@ -151,20 +151,63 @@ function boutonIcone(txt, title, action) {
 
 // Capture et génération PNG
 async function genererAffiche(division, block) {
-  // On récupère la zone postérisable
-  const captureZone = block.querySelector('.poster-wrapper');
-  if (!captureZone) return;
-  // Maj positions juste avant capture (sécurité)
-  const tbody = captureZone.querySelector('tbody');
-  if (tbody) majPositions(tbody);
+  const original = block.querySelector('.poster-wrapper');
+  if (!original) return;
+  const tbodyOrig = original.querySelector('tbody');
+  if (tbodyOrig) majPositions(tbodyOrig);
 
-  // Désactivation transitions pour un rendu net
-  captureZone.classList.add('rendering');
+  // Clone pour export propre (sans selects / actions)
+  const clone = original.cloneNode(true);
+  clone.classList.add('export-mode');
+  clone.style.position = 'fixed';
+  clone.style.left = '-3000px'; // hors écran
+  clone.style.top = '0';
+  clone.style.zIndex = '-1';
+
+  // Nettoyage: remplacer selects par span texte,
+  // supprimer colonne actions, retirer inputs style -> valeurs en texte.
+  const table = clone.querySelector('table');
+  if (table) {
+    // Retirer entête actions
+    const lastTh = table.querySelector('thead th:last-child');
+    if (lastTh) lastTh.remove();
+    // Pour chaque ligne
+    table.querySelectorAll('tbody tr').forEach(tr => {
+      // Team select -> span
+      const teamSelect = tr.querySelector('select.team-select');
+      if (teamSelect) {
+        const span = document.createElement('span');
+        span.className = 'team-static-name';
+        span.textContent = teamSelect.value || '';
+        teamSelect.parentElement.replaceChild(span, teamSelect);
+      }
+      // MJ / PTS -> valeurs
+      const mj = tr.querySelector('input.mj');
+      if (mj) {
+        const spanMj = document.createElement('span');
+        spanMj.textContent = mj.value || '0';
+        mj.parentElement.replaceChild(spanMj, mj);
+      }
+      const pts = tr.querySelector('input.pts');
+      if (pts) {
+        const spanPts = document.createElement('span');
+        spanPts.textContent = pts.value || '0';
+        pts.parentElement.replaceChild(spanPts, pts);
+      }
+      // Remove actions cell
+      const actionsCell = tr.querySelector('td.row-actions');
+      if (actionsCell) actionsCell.remove();
+    });
+  }
+
+  document.body.appendChild(clone);
   try {
-    const canvas = await html2canvas(captureZone, {
-      scale: 2,               // Haute résolution
-      backgroundColor: null,  // Garder transparence si pas de background
-      useCORS: true
+    const canvas = await html2canvas(clone, {
+      scale: 2,
+      backgroundColor: null,
+      useCORS: true,
+      width: 1920,
+      height: 1080
     });
     const dataURL = canvas.toDataURL('image/png');
     const a = document.createElement('a');
@@ -177,7 +220,7 @@ async function genererAffiche(division, block) {
     console.error('Erreur génération image', err);
     alert('Échec de la génération de l\'image. Voir console.');
   } finally {
-    captureZone.classList.remove('rendering');
+    clone.remove();
   }
 }
 
@@ -227,7 +270,7 @@ function construireBlocs() {
           <th>Équipe</th>
           <th>MJ</th>
           <th>PTS</th>
-          <th>Act.</th>
+          <th class="actions-col">Act.</th>
         </tr>
       </thead>
       <tbody></tbody>
