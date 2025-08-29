@@ -149,7 +149,7 @@ function boutonIcone(txt, title, action) {
   return b;
 }
 
-// Capture et génération PNG
+// Capture et génération PNG avec prévisualisation
 async function genererAffiche(division, block) {
   const original = block.querySelector('.poster-wrapper');
   if (!original) return;
@@ -220,18 +220,97 @@ async function genererAffiche(division, block) {
       height: 1080
     });
     const dataURL = canvas.toDataURL('image/png');
-    const a = document.createElement('a');
-    a.href = dataURL;
-    a.download = `${slugify(division)}_${Date.now()}.png`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
+    
+    // Afficher la prévisualisation au lieu de télécharger
+    afficherPrevisualisation(dataURL, division);
+    
   } catch (err) {
     console.error('Erreur génération image', err);
     alert('Échec de la génération de l\'image. Voir console.');
   } finally {
     clone.remove();
   }
+}
+
+// Afficher modal de prévisualisation
+function afficherPrevisualisation(dataURL, division) {
+  // Créer ou réutiliser la modal
+  let modal = document.getElementById('previewModal');
+  if (!modal) {
+    modal = createEl('div', { 
+      className: 'preview-modal',
+      attrs: { id: 'previewModal' }
+    });
+    
+    const content = createEl('div', { className: 'preview-content' });
+    
+    const img = createEl('img', { 
+      className: 'preview-image',
+      attrs: { alt: 'Prévisualisation affiche', id: 'previewImage' }
+    });
+    
+    const actions = createEl('div', { className: 'preview-actions' });
+    
+    const btnCopy = createEl('button', { 
+      className: 'btn', 
+      textContent: '📋 Copier l\'image',
+      attrs: { type: 'button', id: 'copyBtn' }
+    });
+    
+    const btnDownload = createEl('button', { 
+      className: 'btn primary', 
+      textContent: '💾 Télécharger',
+      attrs: { type: 'button', id: 'downloadBtn' }
+    });
+    
+    const btnClose = createEl('button', { 
+      className: 'btn danger', 
+      textContent: '✖ Fermer',
+      attrs: { type: 'button', id: 'closeBtn' }
+    });
+    
+    actions.append(btnCopy, btnDownload, btnClose);
+    content.append(img, actions);
+    modal.appendChild(content);
+    document.body.appendChild(modal);
+    
+    // Event listeners
+    btnClose.addEventListener('click', () => modal.classList.remove('active'));
+    modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('active'); });
+    
+    btnDownload.addEventListener('click', () => {
+      const a = document.createElement('a');
+      a.href = dataURL;
+      a.download = `${slugify(division)}_${Date.now()}.png`;
+      a.click();
+    });
+    
+    btnCopy.addEventListener('click', async () => {
+      try {
+        const response = await fetch(dataURL);
+        const blob = await response.blob();
+        await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+        btnCopy.textContent = '✅ Copié !';
+        setTimeout(() => btnCopy.textContent = '📋 Copier l\'image', 2000);
+      } catch (err) {
+        console.error('Erreur copie:', err);
+        alert('Copie non supportée par le navigateur');
+      }
+    });
+  }
+  
+  // Mettre à jour contenu et afficher
+  const img = modal.querySelector('#previewImage');
+  const downloadBtn = modal.querySelector('#downloadBtn');
+  img.src = dataURL;
+  downloadBtn.onclick = () => {
+    const a = document.createElement('a');
+    a.href = dataURL;
+    a.download = `${slugify(division)}_${Date.now()}.png`;
+    a.click();
+  };
+  
+  modal.classList.add('active');
 }
 
 // Appliquer titre / sous-titre dans chaque division
@@ -300,7 +379,7 @@ function construireBlocs() {
       rafraichirOptionsDivision(division);
     });
 
-    const btnExport = createEl('button', { className: 'btn primary', textContent: 'Générer l\'affiche', attrs: { type:'button' } });
+    const btnExport = createEl('button', { className: 'btn primary', textContent: 'Prévisualiser l\'affiche', attrs: { type:'button' } });
     btnExport.addEventListener('click', () => genererAffiche(division, block));
 
     buttonsBar.append(btnAdd, btnExport);

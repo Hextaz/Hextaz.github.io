@@ -69,9 +69,9 @@ footer { text-align: center; padding: 2rem 1rem; font-size: .8rem; color: #777; 
 .poster-wrapper.export-mode { width: 1920px; height: 1080px; padding: 80px 120px 120px; border-radius: 0; }
 .poster-wrapper.export-mode .poster-header h3 { font-size: 3.4rem; }
 .poster-wrapper.export-mode .poster-header .sous-titre { font-size: 1.7rem; margin-top: .35rem; }
-.poster-wrapper.export-mode h4.division-titre { font-size: 2.2rem; margin: 2.2rem 0 1.2rem; text-align: center; letter-spacing: .5px; }
-.poster-wrapper.export-mode .poster-content { max-width: 1600px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; }
-.poster-wrapper.export-mode .table-wrapper { width: 1280px; margin: 0 auto; }
+.poster-wrapper.export-mode h4.division-titre { font-size: 2.2rem; margin: 1.5rem 0 1rem; text-align: center; letter-spacing: .5px; }
+.poster-wrapper.export-mode .poster-content { max-width: 1600px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 60px; }
+.poster-wrapper.export-mode .table-wrapper { width: 1280px; margin: 0 auto; max-height: none; overflow: visible; }
 .poster-wrapper.export-mode table { font-size: 1.15rem; width: 100%; }
 .poster-wrapper.export-mode th, .poster-wrapper.export-mode td { padding: .55rem .8rem; }
 .poster-wrapper.export-mode th { font-size: .88rem; letter-spacing: 1.3px; }
@@ -133,4 +133,48 @@ input.stat-input { text-align: center; width: 3.2rem; }
   .fields-inline { flex-direction: column; align-items: stretch; }
   .divisions-grid { grid-template-columns: 1fr; }
   .poster-wrapper { min-height: 620px; }
+}
+
+/* Modal de prévisualisation */
+.preview-modal { 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100vw; 
+  height: 100vh; 
+  background: rgba(0,0,0,.9); 
+  display: none; 
+  align-items: center; 
+  justify-content: center; 
+  z-index: 10000; 
+  padding: 2rem;
+}
+.preview-modal.active { display: flex; }
+.preview-content { 
+  max-width: 90vw; 
+  max-height: 90vh; 
+  background: #1a1a1a; 
+  border-radius: 12px; 
+  padding: 1.5rem; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 1rem;
+}
+.preview-image { 
+  max-width: 100%; 
+  max-height: 70vh; 
+  object-fit: contain; 
+  border-radius: 8px; 
+  cursor: pointer; 
+  border: 2px solid #333;
+}
+.preview-actions { 
+  display: flex; 
+  gap: 1rem; 
+  justify-content: center; 
+  flex-wrap: wrap;
+}
+.preview-actions .btn { 
+  font-size: .8rem; 
+  padding: .6rem 1rem;
 }
