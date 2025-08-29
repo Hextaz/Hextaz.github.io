@@ -173,12 +173,13 @@ async function genererAffiche(division, block) {
     if (lastTh) lastTh.remove();
     // Pour chaque ligne
     table.querySelectorAll('tbody tr').forEach(tr => {
-      // Team select -> span
+      // Team select -> span (garder nom)
       const teamSelect = tr.querySelector('select.team-select');
       if (teamSelect) {
         const span = document.createElement('span');
         span.className = 'team-static-name';
-        span.textContent = teamSelect.value || '';
+        const selected = teamSelect.options[teamSelect.selectedIndex];
+        span.textContent = teamSelect.value || (selected ? selected.textContent : '');
         teamSelect.parentElement.replaceChild(span, teamSelect);
       }
       // MJ / PTS -> valeurs
