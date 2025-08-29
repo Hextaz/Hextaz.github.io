@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Générateur d'affiche - Classements</title>
+  <!-- Description pour SEO / partage -->
+  <meta name="description" content="Application statique pour générer des affiches de classement de tournoi (GitHub Pages)." />
+  <link rel="stylesheet" href="style.css" />
+  <!-- html2canvas (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
+  <script src="script.js" type="module" defer></script>
+</head>
+<body>
+  <header>
+    <h1>Générateur d'affiche</h1>
+    <p class="tagline">Créer rapidement des visuels de classement à partir des équipes</p>
+  </header>
+
+  <main>
+    <!-- Zone de configuration globale (titre / sous-titre) -->
+    <section class="config-global card">
+      <h2>Paramètres généraux</h2>
+      <div class="fields-inline">
+        <label>Titre de l'affiche
+          <input id="titreAffiche" type="text" placeholder="Ex: Championnat X" />
+        </label>
+        <label>Sous-titre
+          <input id="sousTitreAffiche" type="text" placeholder="Ex: Semaine 1" />
+        </label>
+        <button id="appliquerTitres" class="btn primary" type="button">Appliquer aux divisions</button>
+      </div>
+      <p class="helper">Les titres sont insérés automatiquement dans chaque bloc de division et inclus dans l'image exportée.</p>
+    </section>
+
+    <!-- Conteneur dynamique des divisions -->
+    <div id="divisionsContainer" class="divisions-grid"></div>
+
+    <noscript>
+      <p>Activez JavaScript pour utiliser l'application.</p>
+    </noscript>
+  </main>
+
+  <footer>
+    <p>Statique • Aucune donnée n'est envoyée côté serveur • <a href="teams.json" target="_blank" rel="noopener">Voir teams.json</a></p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,11 @@
+[
+  { "name": "Ares", "division": "Division 1", "logo": "ares.png" },
+  { "name": "Boreal", "division": "Division 1", "logo": "boreal.png" },
+  { "name": "Cyclone", "division": "Division 1", "logo": "cyclone.png" },
+  { "name": "Draco", "division": "Division 2", "logo": "draco.png" },
+  { "name": "Equinox", "division": "Division 2", "logo": "equinox.png" },
+  { "name": "Falkor", "division": "Division 2", "logo": "falkor.png" },
+  { "name": "Golem", "division": "Division 3", "logo": "golem.png" },
+  { "name": "Helix", "division": "Division 3", "logo": "helix.png" },
+  { "name": "Ion", "division": "Division 3", "logo": "ion.png" }
+]
