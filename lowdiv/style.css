@@ -66,12 +66,12 @@ footer { text-align: center; padding: 2rem 1rem; font-size: .8rem; color: #777; 
 .poster-header h3 { font-size: 1.4rem; letter-spacing: 1px; text-transform: uppercase; }
 .poster-header .sous-titre { font-size: .9rem; font-weight: 500; opacity: .85; }
 /* Mode export (affiche finale 1920x1080) */
-.poster-wrapper.export-mode { width: 1920px; height: 1080px; padding: 80px 120px 120px; border-radius: 0; }
+.poster-wrapper.export-mode { width: 1920px; height: 1080px; padding: 60px 120px 80px; border-radius: 0; }
 .poster-wrapper.export-mode .poster-header h3 { font-size: 3.4rem; }
 .poster-wrapper.export-mode .poster-header .sous-titre { font-size: 1.7rem; margin-top: .35rem; }
-.poster-wrapper.export-mode h4.division-titre { font-size: 2.2rem; margin: 1.5rem 0 1rem; text-align: center; letter-spacing: .5px; }
-.poster-wrapper.export-mode .poster-content { max-width: 1600px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 60px; }
-.poster-wrapper.export-mode .table-wrapper { width: 1280px; margin: 0 auto; max-height: none; overflow: visible; }
+.poster-wrapper.export-mode h4.division-titre { font-size: 1.8rem; margin: 0 0 1rem; text-align: left; letter-spacing: .5px; align-self: flex-start; }
+.poster-wrapper.export-mode .poster-content { max-width: 1600px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 40px; }
+.poster-wrapper.export-mode .table-wrapper { width: 1280px; margin: 0 auto; max-height: none; overflow: visible; align-self: center; }
 .poster-wrapper.export-mode table { font-size: 1.15rem; width: 100%; }
 .poster-wrapper.export-mode th, .poster-wrapper.export-mode td { padding: .55rem .8rem; }
 .poster-wrapper.export-mode th { font-size: .88rem; letter-spacing: 1.3px; }
