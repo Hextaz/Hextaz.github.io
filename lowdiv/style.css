@@ -67,24 +67,24 @@ footer { text-align: center; padding: 2rem 1rem; font-size: .8rem; color: #777; 
 .poster-header .sous-titre { font-size: .9rem; font-weight: 500; opacity: .85; }
 /* Mode export (affiche finale 1920x1080) */
 .poster-wrapper.export-mode { width: 1920px; height: 1080px; padding: 80px 120px 120px; border-radius: 0; }
-.poster-wrapper.export-mode .poster-header h3 { font-size: 3.2rem; }
-.poster-wrapper.export-mode .poster-header .sous-titre { font-size: 1.6rem; margin-top: .25rem; }
-.poster-wrapper.export-mode h4.division-titre { font-size: 2rem; margin: 2rem 0 1rem; text-align: center; }
-.poster-wrapper.export-mode .poster-content { max-width: 1400px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
-.poster-wrapper.export-mode table { font-size: 1rem; width: 100%; }
-.poster-wrapper.export-mode th, .poster-wrapper.export-mode td { padding: .4rem .65rem; }
-.poster-wrapper.export-mode th { font-size: .78rem; letter-spacing: 1px; }
-.poster-wrapper.export-mode td.position-col { font-size: 1rem; }
-.poster-wrapper.export-mode tbody tr { background: rgba(25,25,25,.72); }
-.poster-wrapper.export-mode tbody tr:nth-child(even) { background: rgba(32,32,32,.78); }
-.poster-wrapper.export-mode select.team-select, .poster-wrapper.export-mode input.stat-input { font-size: 1rem; padding: .45rem .55rem; }
-.poster-wrapper.export-mode .table-wrapper { width: 100%; }
+.poster-wrapper.export-mode .poster-header h3 { font-size: 3.4rem; }
+.poster-wrapper.export-mode .poster-header .sous-titre { font-size: 1.7rem; margin-top: .35rem; }
+.poster-wrapper.export-mode h4.division-titre { font-size: 2.2rem; margin: 2.2rem 0 1.2rem; text-align: center; letter-spacing: .5px; }
+.poster-wrapper.export-mode .poster-content { max-width: 1500px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+.poster-wrapper.export-mode .table-wrapper { width: 1150px; margin: 0 auto; }
+.poster-wrapper.export-mode table { font-size: 1.05rem; width: 100%; }
+.poster-wrapper.export-mode th, .poster-wrapper.export-mode td { padding: .48rem .75rem; }
+.poster-wrapper.export-mode th { font-size: .82rem; letter-spacing: 1.2px; }
+.poster-wrapper.export-mode td.position-col { font-size: 1.05rem; }
+.poster-wrapper.export-mode tbody tr { background: rgba(18,18,18,.78); }
+.poster-wrapper.export-mode tbody tr:nth-child(even) { background: rgba(26,26,26,.82); }
+.poster-wrapper.export-mode select.team-select, .poster-wrapper.export-mode input.stat-input { font-size: 1.05rem; padding: .5rem .6rem; }
 .poster-wrapper.export-mode .actions-col, .poster-wrapper.export-mode td.row-actions { display: none !important; }
 .poster-wrapper.export-mode .team-static-name { font-weight: 600; color: #f5f5f5; letter-spacing: .5px; }
 .team-static-name { display: inline-block; color: #fff; font-weight: 600; }
 
 
-table { width: 100%; border-collapse: collapse; font-size: .75rem; }
+table { width: 100%; border-collapse: collapse; font-size: .78rem; }
 thead { background: rgba(40,40,40,.85); }
 th, td { padding: .35rem .5rem; text-align: left; }
 th { font-weight: 600; font-size: .68rem; letter-spacing: .5px; text-transform: uppercase; }
@@ -96,7 +96,7 @@ tbody tr:hover { background: rgba(255,255,255,.12); }
 
 td.position-col { font-weight: 700; font-size: .7rem; width: 2.2rem; text-align: center; }
 td.logo-col { width: 40px; }
-td.logo-col img { width: 32px; height: 32px; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0,0,0,.6)); }
+td.logo-col img { width: 34px; height: 34px; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0,0,0,.6)); }
 
 select.team-select, input.stat-input { width: 100%; font-size: .7rem; padding: .3rem .4rem; border-radius: 6px; border: 1px solid #303034; background: #242428; color: #eee; }
 select.team-select:focus, input.stat-input:focus { outline: 2px solid #3c78ff; outline-offset: 1px; }

@@ -156,8 +156,20 @@ async function genererAffiche(division, block) {
   const tbodyOrig = original.querySelector('tbody');
   if (tbodyOrig) majPositions(tbodyOrig);
 
+  // Forcer la persistance de la sélection des <select> (cloneNode ne copie que les attributs, pas l'état runtime)
+  const originalSelects = [...original.querySelectorAll('select.team-select')];
+  originalSelects.forEach(sel => {
+    // Nettoyer attributs selected existants
+    [...sel.options].forEach(o => o.removeAttribute('selected'));
+    const opt = sel.selectedOptions[0];
+    if (opt) opt.setAttribute('selected','');
+  });
+
   // Clone pour export propre (sans selects / actions)
   const clone = original.cloneNode(true);
+  // Recopie de la valeur courante (sécurité supplémentaire) – après clonage
+  const cloneSelects = [...clone.querySelectorAll('select.team-select')];
+  cloneSelects.forEach((cSel, i) => { if (originalSelects[i]) cSel.value = originalSelects[i].value; });
   clone.classList.add('export-mode');
   clone.style.position = 'fixed';
   clone.style.left = '-3000px'; // hors écran
