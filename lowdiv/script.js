@@ -217,7 +217,7 @@ async function genererAffiche(division, block) {
       backgroundColor: null,
       useCORS: true,
       width: 800,
-      height: 1400
+      height: 1000
     });
     const dataURL = canvas.toDataURL('image/png');
     
