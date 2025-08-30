@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Résultats Matchs - Lowdiv Tournament</title>
+  <link rel="stylesheet" href="matchs.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Résultats des Matchs de la Semaine</h1>
+    
+    <div class="config-section">
+      <div class="fields-inline">
+        <label>
+          <span>Titre de l'affiche</span>
+          <input type="text" id="titre-affiche" placeholder="Matchs de la semaine" value="Matchs de la semaine">
+        </label>
+        <label>
+          <span>Sous-titre</span>
+          <input type="text" id="sous-titre" placeholder="Semaine du XX/XX/XXXX" value="">
+        </label>
+      </div>
+    </div>
+
+    <div class="divisions-grid" id="divisions-container">
+      <!-- Les divisions seront générées ici -->
+    </div>
+  </div>
+
+  <!-- Modal de prévisualisation -->
+  <div class="preview-modal" id="preview-modal">
+    <div class="preview-content">
+      <img class="preview-image" id="preview-image" alt="Prévisualisation">
+      <div class="preview-actions">
+        <button class="btn primary" onclick="telechargerImage()">Télécharger</button>
+        <button class="btn" onclick="copierImage()">Copier</button>
+        <button class="btn" onclick="fermerPrevisualisation()">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="matchs.js"></script>
+</body>
+</html>

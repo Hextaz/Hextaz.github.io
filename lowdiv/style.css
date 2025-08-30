@@ -129,10 +129,193 @@ input.stat-input { text-align: center; width: 3.2rem; }
 .icon-btn:focus { outline: 2px solid #5f8dff; }
 
 /* Responsive améliorations */
+
+/* Tablettes et grands mobiles */
+@media (max-width: 768px) {
+  header { padding: 1rem; }
+  header h1 { font-size: 1.4rem; }
+  
+  main { padding: 1rem; }
+  
+  .fields-inline { flex-direction: column; align-items: stretch; }
+  .fields-inline input { min-width: auto; }
+  
+  .divisions-grid { 
+    grid-template-columns: 1fr; 
+    gap: 1rem;
+  }
+  
+  .card { padding: 1rem; }
+  
+  /* Tableaux plus compacts */
+  table { font-size: .7rem; }
+  th, td { padding: .25rem .3rem; }
+  
+  /* Colonnes d'actions plus petites */
+  .row-actions button { 
+    font-size: .55rem; 
+    padding: .2rem .4rem;
+  }
+  
+  /* Inputs plus petits */
+  select.team-select, input.stat-input { 
+    font-size: .65rem; 
+    padding: .25rem .35rem;
+  }
+  
+  input.stat-input { width: 2.8rem; }
+}
+
+/* Petits mobiles */
 @media (max-width: 650px) {
   .fields-inline { flex-direction: column; align-items: stretch; }
   .divisions-grid { grid-template-columns: 1fr; }
   .poster-wrapper { min-height: 620px; }
+  
+  /* Table responsive - adaptation sans scroll */
+  .table-wrapper {
+    overflow: visible;
+  }
+  
+  table {
+    width: 100%;
+    font-size: .65rem;
+    table-layout: fixed; /* Force l'adaptation des colonnes */
+  }
+  
+  th, td { 
+    padding: .2rem .15rem;
+    word-wrap: break-word;
+    overflow: hidden;
+  }
+  
+  /* Colonnes avec largeurs adaptatives */
+  th:first-child, td:first-child { width: 8%; } /* Position */
+  td.logo-col { width: 12%; } /* Logo */
+  td.team-col { width: 35%; } /* Équipe - plus d'espace */
+  td.stat-col { width: 15%; } /* Stats */
+  td.row-actions { width: 30%; } /* Actions */
+  
+  /* Colonnes logos plus petites */
+  td.logo-col img { 
+    width: 24px; 
+    height: 24px;
+  }
+  
+  /* Position col plus compacte */
+  td.position-col { 
+    font-size: .65rem;
+    text-align: center;
+  }
+  
+  /* Actions très compactes */
+  .row-actions button { 
+    font-size: .5rem; 
+    padding: .15rem .3rem;
+    min-width: auto;
+  }
+  
+  /* Inputs très compacts */
+  select.team-select { 
+    font-size: .6rem; 
+    padding: .2rem .3rem;
+    min-height: 26px;
+  }
+  
+  input.stat-input { 
+    width: 2.5rem;
+    font-size: .6rem;
+    padding: .2rem .25rem;
+  }
+  
+  /* Boutons principaux adaptés */
+  .btn { 
+    font-size: .65rem; 
+    padding: .45rem .7rem;
+  }
+}
+
+/* Très petits écrans */
+@media (max-width: 480px) {
+  header h1 { font-size: 1.2rem; }
+  header .tagline { font-size: .8rem; }
+  
+  main { padding: .75rem; }
+  
+  .card { 
+    padding: .75rem;
+    border-radius: 10px;
+  }
+  
+  /* Mode très compact pour les tableaux - sans scroll */
+  table { 
+    width: 100%;
+    font-size: .6rem;
+    table-layout: fixed;
+  }
+  
+  th { 
+    font-size: .55rem;
+    letter-spacing: .3px;
+  }
+  
+  th, td { 
+    padding: .15rem .1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Répartition optimisée des colonnes */
+  th:first-child, td:first-child { width: 8%; } /* Position */
+  td.logo-col { width: 10%; } /* Logo */
+  td.team-col { width: 30%; } /* Équipe */
+  td.stat-col { width: 12%; } /* Stats */
+  td.row-actions { width: 40%; } /* Actions */
+  
+  /* Logos très petits */
+  td.logo-col img { 
+    width: 20px; 
+    height: 20px;
+  }
+  
+  /* Inputs mini adaptés */
+  select.team-select { 
+    font-size: .55rem;
+    padding: .15rem .2rem;
+    min-height: 24px;
+    width: 100%;
+  }
+  
+  input.stat-input { 
+    width: 100%;
+    max-width: 2.5rem;
+    font-size: .55rem;
+    padding: .15rem .2rem;
+  }
+  
+  /* Actions mini en ligne */
+  .row-actions { 
+    gap: .1rem;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .row-actions button { 
+    font-size: .4rem; 
+    padding: .08rem .2rem;
+    flex: 1;
+    min-width: 0;
+  }
+  
+  /* Boutons adaptés */
+  .btn { 
+    font-size: .6rem; 
+    padding: .4rem .6rem;
+  }
+  
+  .buttons-bar { 
+    gap: .35rem;
+    flex-direction: column;
+  }
 }
 
 /* Modal de prévisualisation */
