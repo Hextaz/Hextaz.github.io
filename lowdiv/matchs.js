@@ -225,6 +225,10 @@ async function genererAffiche() {
   `;
   posterContent.appendChild(header);
 
+  // Conteneur des divisions
+  const divisionsContainer = document.createElement('div');
+  divisionsContainer.className = 'poster-divisions-container';
+
   // Divisions et matchs
   const divisions = Object.keys(matchsData);
   divisions.forEach(division => {
@@ -259,9 +263,10 @@ async function genererAffiche() {
       posterDivision.appendChild(byeElement);
     }
     
-    posterContent.appendChild(posterDivision);
+    divisionsContainer.appendChild(posterDivision);
   });
 
+  posterContent.appendChild(divisionsContainer);
   posterWrapper.appendChild(posterContent);
   document.body.appendChild(posterWrapper);
 
@@ -272,7 +277,7 @@ async function genererAffiche() {
       backgroundColor: null,
       useCORS: true,
       width: 800,
-      height: 1150
+      height: 1000
     });
     const dataURL = canvas.toDataURL('image/png');
     
