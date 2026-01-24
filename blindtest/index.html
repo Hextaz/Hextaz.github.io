@@ -153,6 +153,53 @@
             border: none;
             background: white; /* Most buzzer sites have white backgrounds */
         }
+
+        /* Scoreboard Styles */
+        .scoreboard-container {
+            padding: 1rem;
+            overflow-y: auto;
+            height: 100%;
+            background-color: #2b2d31;
+        }
+        
+        .player-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #383a40;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .score-badge {
+            background-color: #5865F2;
+            color: white;
+            font-weight: bold;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            min-width: 40px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .tab-btn {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            opacity: 0.6;
+            border-bottom: 2px solid transparent;
+        }
+        .tab-btn.active {
+            opacity: 1;
+            border-bottom: 2px solid #5865F2;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -172,9 +219,10 @@
                     <i class="fas fa-sync-alt"></i>
                 </button>
             </div>
+            <!-- Buzzer URL input is still here but optional -->
             <div class="input-group w-1/3">
-                <input type="text" id="buzzerUrl" class="input-dark" placeholder="Lien de la Room Buzzer (ex: buzzin.live)">
-                <button onclick="loadBuzzer()" class="btn btn-secondary" title="Charger le site buzzer">
+                <input type="text" id="buzzerUrl" class="input-dark" placeholder="Lien Buzzer (Si compatible iframe)">
+                <button onclick="loadBuzzer()" class="btn btn-secondary" title="Tenter de charger le site">
                     <i class="fas fa-link"></i>
                 </button>
             </div>
@@ -199,6 +247,7 @@
                     <i class="fas fa-question-circle text-9xl text-gray-600 pulsing-icon mb-4"></i>
                     <h2 class="text-3xl font-bold text-white mb-2">VIDÉO MASQUÉE</h2>
                     <p class="text-gray-400">Le son joue... Qui trouvera le titre ?</p>
+                    <p id="error-message" class="text-red-500 mt-4 text-sm hidden">Si la vidéo ne démarre pas (Erreur 150), hébergez ce fichier sur GitHub Pages.</p>
                 </div>
 
                 <!-- YouTube Iframe placeholder -->
@@ -230,18 +279,42 @@
 
         <!-- Right: Buzzer / Scoreboard -->
         <div class="card">
-            <div class="bg-gray-900 p-2 text-center text-sm font-mono text-gray-400 border-b border-gray-700">
-                SYSTÈME DE BUZZER & SCORES
+            <div class="bg-gray-900 p-0 text-center text-sm font-mono text-gray-400 border-b border-gray-700 flex justify-center">
+                <div class="tab-btn active" id="tab-scores" onclick="switchTab('scores')">MANUEL</div>
+                <div class="tab-btn" id="tab-site" onclick="switchTab('site')">SITE WEB</div>
             </div>
+            
             <div style="flex-grow: 1; position: relative;">
-                <iframe id="buzzerFrame" class="buzzer-frame" src="about:blank" allow="autoplay; microphone; camera"></iframe>
                 
-                <!-- Placeholder when no URL is set -->
-                <div id="buzzerPlaceholder" class="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-gray-800 text-gray-500">
-                    <i class="fas fa-gamepad text-6xl mb-4"></i>
-                    <p>Entre l'URL de ton site de buzzer en haut à droite</p>
-                    <p class="text-xs mt-2">(Ex: buzzin.live, multicorner.net, massivequiz.com)</p>
+                <!-- MODE 1: Manual Scoreboard -->
+                <div id="panel-scores" class="scoreboard-container h-full">
+                    <div class="flex gap-2 mb-4">
+                        <input type="text" id="newPlayerName" class="input-dark" placeholder="Nom du joueur" onkeypress="handleEnter(event)">
+                        <button onclick="addPlayer()" class="btn btn-success"><i class="fas fa-plus"></i></button>
+                    </div>
+                    
+                    <div id="players-list" class="flex flex-col gap-2">
+                        <!-- Players will be added here -->
+                    </div>
+                    
+                    <div id="empty-state" class="text-center text-gray-500 mt-10">
+                        <i class="fas fa-users text-4xl mb-2"></i>
+                        <p>Ajoute des joueurs pour compter les points manuellement.</p>
+                    </div>
                 </div>
+
+                <!-- MODE 2: Iframe for External Site -->
+                <div id="panel-site" class="w-full h-full hidden" style="display: none;">
+                    <iframe id="buzzerFrame" class="buzzer-frame" src="about:blank" allow="autoplay; microphone; camera"></iframe>
+                    
+                    <!-- Placeholder -->
+                    <div id="buzzerPlaceholder" class="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-gray-800 text-gray-500 pointer-events-none">
+                        <i class="fas fa-globe text-6xl mb-4"></i>
+                        <p class="px-4 text-center">Entre l'URL en haut à droite.</p>
+                        <p class="text-xs mt-2 text-red-400 px-4 text-center">Attention: Beaucoup de sites (ex: Buzzin.live) bloquent l'affichage ici.<br>Utilise le mode MANUEL si ça reste blanc.</p>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -258,7 +331,6 @@
         var isMasked = true;
         
         function onYouTubeIframeAPIReady() {
-            // Initialisation vide, on attend que l'utilisateur charge une playlist
             console.log("YouTube API Ready");
         }
 
@@ -266,7 +338,6 @@
             const input = document.getElementById('playlistUrl').value;
             let listId = '';
 
-            // Extract List ID from URL or use raw ID
             const urlParams = new URLSearchParams(new URL(input).search);
             if(urlParams.has('list')){
                 listId = urlParams.get('list');
@@ -279,7 +350,6 @@
                 return;
             }
 
-            // If player doesn't exist, create it
             if (!player) {
                 player = new YT.Player('player', {
                     height: '100%',
@@ -288,16 +358,16 @@
                         'playsinline': 1,
                         'listType': 'playlist',
                         'list': listId,
-                        'autoplay': 1, // Try autoplay (browser might block audio)
-                        'controls': 1  // Keep controls just in case host needs them
+                        'autoplay': 1,
+                        'controls': 1
                     },
                     events: {
                         'onReady': onPlayerReady,
-                        'onStateChange': onPlayerStateChange
+                        'onStateChange': onPlayerStateChange,
+                        'onError': onPlayerError
                     }
                 });
             } else {
-                // If player exists, just cue the new playlist
                 player.loadPlaylist({
                     list: listId,
                     listType: 'playlist',
@@ -306,25 +376,28 @@
                 });
             }
 
-            // Ensure mask is active when loading new list
             maskVideo();
+            document.getElementById('error-message').classList.add('hidden');
         }
 
         function onPlayerReady(event) {
             updateTrackInfo();
-            // Try to set volume to max by default
             event.target.setVolume(100);
         }
 
         function onPlayerStateChange(event) {
-            // Update track info when video changes (State 1 = Playing, -1 = Unstarted)
             if (event.data == YT.PlayerState.PLAYING || event.data == YT.PlayerState.UNSTARTED) {
                 updateTrackInfo();
             }
-            
-            // Optional: Auto-mask when a video ends/changes
             if (event.data == YT.PlayerState.ENDED) {
-                maskVideo(); // Re-mask for the next video automatically
+                maskVideo();
+            }
+        }
+
+        function onPlayerError(event) {
+            // Error 150 or 101 means restricted playback
+            if (event.data === 150 || event.data === 101) {
+                document.getElementById('error-message').classList.remove('hidden');
             }
         }
 
@@ -341,7 +414,7 @@
         function pauseVideo() { if(player) player.pauseVideo(); }
         function nextVideo() { 
             if(player) {
-                maskVideo(); // Always mask before going to next
+                maskVideo(); 
                 player.nextVideo(); 
             }
         }
@@ -382,8 +455,23 @@
             isMasked = false;
         }
 
+        // --- Tab Logic ---
+        function switchTab(tab) {
+            document.getElementById('tab-scores').classList.toggle('active', tab === 'scores');
+            document.getElementById('tab-site').classList.toggle('active', tab === 'site');
+            
+            if(tab === 'scores') {
+                document.getElementById('panel-scores').style.display = 'block';
+                document.getElementById('panel-site').style.display = 'none';
+            } else {
+                document.getElementById('panel-scores').style.display = 'none';
+                document.getElementById('panel-site').style.display = 'block';
+            }
+        }
+
         // --- Buzzer Iframe Logic ---
         function loadBuzzer() {
+            switchTab('site'); // Force switch to site tab
             const url = document.getElementById('buzzerUrl').value;
             const iframe = document.getElementById('buzzerFrame');
             const placeholder = document.getElementById('buzzerPlaceholder');
@@ -396,6 +484,66 @@
                 iframe.src = formattedUrl;
                 placeholder.style.display = 'none';
             }
+        }
+
+        // --- Manual Scoreboard Logic ---
+        let players = [];
+
+        function handleEnter(e) {
+            if(e.key === 'Enter') addPlayer();
+        }
+
+        function addPlayer() {
+            const input = document.getElementById('newPlayerName');
+            const name = input.value.trim();
+            if(!name) return;
+
+            players.push({ id: Date.now(), name: name, score: 0 });
+            input.value = '';
+            renderPlayers();
+            document.getElementById('empty-state').style.display = 'none';
+        }
+
+        function updateScore(id, delta) {
+            const player = players.find(p => p.id === id);
+            if(player) {
+                player.score += delta;
+                // sort players by score (descending)
+                players.sort((a, b) => b.score - a.score);
+                renderPlayers();
+            }
+        }
+
+        function removePlayer(id) {
+            players = players.filter(p => p.id !== id);
+            renderPlayers();
+            if(players.length === 0) document.getElementById('empty-state').style.display = 'block';
+        }
+
+        function renderPlayers() {
+            const list = document.getElementById('players-list');
+            list.innerHTML = '';
+
+            players.forEach((p, index) => {
+                const rankColor = index === 0 ? 'text-yellow-400' : (index === 1 ? 'text-gray-300' : (index === 2 ? 'text-orange-400' : 'text-white'));
+                const crown = index === 0 && p.score > 0 ? '<i class="fas fa-crown text-yellow-400 mr-2"></i>' : '';
+
+                const html = `
+                    <div class="player-row">
+                        <div class="flex items-center flex-grow">
+                            <span class="font-mono w-6 ${rankColor} font-bold">#${index + 1}</span>
+                            <span class="font-bold text-lg truncate">${crown}${p.name}</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button onclick="updateScore(${p.id}, -1)" class="btn btn-secondary py-1 px-2 text-sm"><i class="fas fa-minus"></i></button>
+                            <span class="score-badge">${p.score}</span>
+                            <button onclick="updateScore(${p.id}, 1)" class="btn btn-success py-1 px-2 text-sm"><i class="fas fa-plus"></i></button>
+                            <button onclick="removePlayer(${p.id})" class="text-gray-500 hover:text-red-500 ml-2"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+                list.insertAdjacentHTML('beforeend', html);
+            });
         }
     </script>
 </body>
