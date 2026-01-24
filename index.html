@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Étudiant - BUT Informatique</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">MonPortfolio</a>
+            <ul class="nav-links">
+                <li><a href="#hero">Accueil</a></li>
+                <li><a href="#competences">Compétences</a></li>
+                <li><a href="#projets">Projets</a></li>
+                <li><a href="#profil">Profil</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="hero" class="hero-section">
+        <div class="container hero-container">
+            <div class="hero-image">
+                <!-- Placeholder image, replace with your own -->
+                <img src="https://via.placeholder.com/300" alt="Photo de profil">
+            </div>
+            <div class="hero-content">
+                <h1>Bonjour, je suis [Ton Nom]</h1>
+                <p class="pitch">Étudiant en informatique passionné par le développement web et l'UX Design. Je conçois des solutions numériques intuitives et performantes.</p>
+                <div class="hero-buttons">
+                    <a href="#projets" class="btn btn-primary">Voir mes projets</a>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="competences" class="skills-section">
+        <div class="container">
+            <h2 class="section-title">Mes Compétences</h2>
+            <div class="skills-grid">
+                <!-- Réaliser -->
+                <div class="skill-card realiser">
+                    <h3>Réaliser</h3>
+                    <p>Conception et développement d'applications complètes, robustes et adaptables sur tous supports (Web, Mobile, IoT), en partant de l'analyse des besoins jusqu'au déploiement.</p>
+                </div>
+                <!-- Optimiser -->
+                <div class="skill-card optimiser">
+                    <h3>Optimiser</h3>
+                    <p>Analyse approfondie des performances logicielles et sélection des structures de données et algorithmes les plus pertinents pour garantir rapidité et efficacité.</p>
+                </div>
+                <!-- Administrer -->
+                <div class="skill-card administrer">
+                    <h3>Administrer</h3>
+                    <p>Installation, configuration et sécurisation des infrastructures systèmes et réseaux pour assurer la disponibilité et la continuité des services numériques.</p>
+                </div>
+                <!-- Gérer -->
+                <div class="skill-card gerer">
+                    <h3>Gérer</h3>
+                    <p>Conception et exploitation de bases de données relationnelles et NoSQL, en assurant l'intégrité, la sécurité et l'accessibilité des données d'entreprise.</p>
+                </div>
+                <!-- Conduire -->
+                <div class="skill-card conduire">
+                    <h3>Conduire</h3>
+                    <p>Pilotage de projets informatiques via des méthodes agiles, de l'identification des besoins clients à la livraison finale, en respectant délais et qualité.</p>
+                </div>
+                <!-- Collaborer -->
+                <div class="skill-card collaborer">
+                    <h3>Collaborer</h3>
+                    <p>Intégration efficace au sein d'équipes techniques, communication professionnelle fluide et capacité à coordonner ou manager des collaborateurs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Placeholder for other sections -->
+    <section id="projets" class="projects-section">
+        <div class="container">
+            <h2 class="section-title">Mes Projets</h2>
+            
+            <!-- Filtres -->
+            <div class="filters-container">
+                <button class="filter-btn" data-filter="realiser">Réaliser</button>
+                <button class="filter-btn" data-filter="optimiser">Optimiser</button>
+                <button class="filter-btn" data-filter="administrer">Administrer</button>
+                <button class="filter-btn" data-filter="gerer">Gérer</button>
+                <button class="filter-btn" data-filter="conduire">Conduire</button>
+                <button class="filter-btn" data-filter="collaborer">Collaborer</button>
+            </div>
+
+            <!-- Grille Projets -->
+            <div class="projects-grid">
+                <!-- Projet 1 (Exemple) -->
+                <div class="project-card" data-id="1" data-skills="realiser optimiser">
+                    <div class="card-image">
+                        <img src="https://via.placeholder.com/400x300" alt="Aperçu Projet 1">
+                    </div>
+                    <div class="project-info">
+                        <h3>Application de Gestion de Tâches</h3>
+                        <div class="project-badges">
+                            <span class="badge realiser">Réaliser</span>
+                            <span class="badge optimiser">Optimiser</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projet 2 (Exemple) -->
+                <div class="project-card" data-id="2" data-skills="administrer gerer">
+                    <div class="card-image">
+                        <img src="https://via.placeholder.com/400x300" alt="Aperçu Projet 2">
+                    </div>
+                    <div class="project-info">
+                        <h3>Déploiement Serveur Web</h3>
+                        <div class="project-badges">
+                            <span class="badge administrer">Administrer</span>
+                            <span class="badge gerer">Gérer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal / Lightbox -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            
+            <div class="carousel-container">
+                <div class="carousel-track-container">
+                    <ul class="carousel-track">
+                        <!-- Images injectées via JS -->
+                    </ul>
+                </div>
+                <button class="carousel-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="carousel-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                <div class="carousel-nav">
+                    <!-- Points injectés via JS -->
+                </div>
+            </div>
+
+            <div class="modal-details">
+                <h3 id="modal-title">Titre du Projet</h3>
+                <p id="modal-desc">Description du projet...</p>
+                <div id="modal-skills-link" class="modal-skills-container">
+                    <!-- Liens vers compétences injectés via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="profil" style="padding: 80px 0;">
+        <div class="container">
+            <h2 class="section-title">Profil (À venir)</h2>
+        </div>
+    </section>
+
+    <section id="contact" style="padding: 80px 0; background: #f9f9f9;">
+        <div class="container">
+            <h2 class="section-title">Contact (À venir)</h2>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-container">
+            <p>&copy; 2026 Mon Portfolio. Tous droits réservés.</p>
+            <div class="footer-links">
+                <a href="#">GitHub</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
