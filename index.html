@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Étudiant - BUT Informatique</title>
+    <title>Portfolio Biblocque Nolhan - BUT Informatique</title>
     <link rel="stylesheet" href="style.css">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -11,12 +11,11 @@
 <body>
     <nav class="navbar">
         <div class="container nav-container">
-            <a href="#" class="logo">MonPortfolio</a>
+            <a href="#" class="logo">Nolhan Biblocque</a>
             <ul class="nav-links">
                 <li><a href="#hero">Accueil</a></li>
                 <li><a href="#competences">Compétences</a></li>
                 <li><a href="#projets">Projets</a></li>
-                <li><a href="#profil">Profil</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -25,17 +24,17 @@
     <section id="hero" class="hero-section">
         <div class="container hero-container">
             <div class="hero-image">
-                <!-- Placeholder image, replace with your own -->
-                <img src="https://via.placeholder.com/300" alt="Photo de profil">
+                <img src="assets/profile.png" alt="Nolhan Biblocque">
             </div>
             <div class="hero-content">
-                <h1>Bonjour, je suis [Ton Nom]</h1>
-                <p class="pitch">Étudiant en informatique passionné par le développement web et l'UX Design. Je conçois des solutions numériques intuitives et performantes.</p>
+                <h1>Bonjour, je suis Nolhan Biblocque</h1>
+                <p class="pitch">Jeune passionné de l'univers et du développement Web, je souhaite m'intégrer au monde professionnel et devenir l'alternant de votre entreprise. Motivé, curieux et autonome, je suis prêt à relever les défis de votre équipe et à faire évoluer mes compétences (Python, Java, PHP, Angular, Laravel) au bénéfice de tous.</p>
                 <div class="hero-buttons">
                     <a href="#projets" class="btn btn-primary">Voir mes projets</a>
+                    <a href="assets/CV_Nolhan_Biblocque.pdf" class="btn btn-secondary" target="_blank" download>Télécharger mon CV</a>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/nolhan-biblocque-7615362aa" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/Hextaz" target="_blank"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
             </div>
@@ -47,32 +46,32 @@
             <h2 class="section-title">Mes Compétences</h2>
             <div class="skills-grid">
                 <!-- Réaliser -->
-                <div class="skill-card realiser">
+                <div class="skill-card realiser" data-skill="realiser">
                     <h3>Réaliser</h3>
                     <p>Conception et développement d'applications complètes, robustes et adaptables sur tous supports (Web, Mobile, IoT), en partant de l'analyse des besoins jusqu'au déploiement.</p>
                 </div>
                 <!-- Optimiser -->
-                <div class="skill-card optimiser">
+                <div class="skill-card optimiser" data-skill="optimiser">
                     <h3>Optimiser</h3>
                     <p>Analyse approfondie des performances logicielles et sélection des structures de données et algorithmes les plus pertinents pour garantir rapidité et efficacité.</p>
                 </div>
                 <!-- Administrer -->
-                <div class="skill-card administrer">
+                <div class="skill-card administrer" data-skill="administrer">
                     <h3>Administrer</h3>
                     <p>Installation, configuration et sécurisation des infrastructures systèmes et réseaux pour assurer la disponibilité et la continuité des services numériques.</p>
                 </div>
                 <!-- Gérer -->
-                <div class="skill-card gerer">
+                <div class="skill-card gerer" data-skill="gerer">
                     <h3>Gérer</h3>
                     <p>Conception et exploitation de bases de données relationnelles et NoSQL, en assurant l'intégrité, la sécurité et l'accessibilité des données d'entreprise.</p>
                 </div>
                 <!-- Conduire -->
-                <div class="skill-card conduire">
+                <div class="skill-card conduire" data-skill="conduire">
                     <h3>Conduire</h3>
                     <p>Pilotage de projets informatiques via des méthodes agiles, de l'identification des besoins clients à la livraison finale, en respectant délais et qualité.</p>
                 </div>
                 <!-- Collaborer -->
-                <div class="skill-card collaborer">
+                <div class="skill-card collaborer" data-skill="collaborer">
                     <h3>Collaborer</h3>
                     <p>Intégration efficace au sein d'équipes techniques, communication professionnelle fluide et capacité à coordonner ou manager des collaborateurs.</p>
                 </div>
@@ -97,28 +96,50 @@
 
             <!-- Grille Projets -->
             <div class="projects-grid">
-                <!-- Projet 1 (Exemple) -->
-                <div class="project-card" data-id="1" data-skills="realiser optimiser">
+                <!-- Projet 1 -->
+                <div class="project-card" data-id="1" data-skills="realiser administrer gerer conduire collaborer">
                     <div class="card-image">
-                        <img src="https://via.placeholder.com/400x300" alt="Aperçu Projet 1">
+                        <img src="assets/siteEcommerce/index.png" alt="Aperçu Projet E-commerce">
                     </div>
                     <div class="project-info">
-                        <h3>Application de Gestion de Tâches</h3>
+                        <h3>Site E-commerce (Agile)</h3>
                         <div class="project-badges">
                             <span class="badge realiser">Réaliser</span>
-                            <span class="badge optimiser">Optimiser</span>
+                            <span class="badge administrer">Administrer</span>
+                            <span class="badge gerer">Gérer</span>
+                            <span class="badge conduire">Conduire</span>
+                            <span class="badge collaborer">Collaborer</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Projet 2 (Exemple) -->
-                <div class="project-card" data-id="2" data-skills="administrer gerer">
+                <!-- Projet 2 (Alternance) -->
+                <div class="project-card" data-id="2" data-skills="realiser optimiser gerer conduire collaborer">
                     <div class="card-image">
-                        <img src="https://via.placeholder.com/400x300" alt="Aperçu Projet 2">
+                        <img src="assets/alternance/architectureHexagonale.webp" alt="Aperçu Alternance">
                     </div>
                     <div class="project-info">
-                        <h3>Déploiement Serveur Web</h3>
+                        <h3>Alternance - Backend Laravel</h3>
                         <div class="project-badges">
+                            <span class="badge realiser">Réaliser</span>
+                            <span class="badge optimiser">Optimiser</span>
+                            <span class="badge gerer">Gérer</span>
+                            <span class="badge conduire">Conduire</span>
+                            <span class="badge collaborer">Collaborer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projet 3 (Stage) -->
+                <div class="project-card" data-id="3" data-skills="realiser optimiser administrer gerer">
+                    <div class="card-image">
+                        <img src="assets/stage/index.png" alt="Aperçu Site Café">
+                    </div>
+                    <div class="project-info">
+                        <h3>Stage - Site & Dashboard</h3>
+                        <div class="project-badges">
+                            <span class="badge realiser">Réaliser</span>
+                            <span class="badge optimiser">Optimiser</span>
                             <span class="badge administrer">Administrer</span>
                             <span class="badge gerer">Gérer</span>
                         </div>
@@ -156,24 +177,42 @@
         </div>
     </div>
 
-    <section id="profil" style="padding: 80px 0;">
+    <section id="contact" class="contact-section">
         <div class="container">
-            <h2 class="section-title">Profil (À venir)</h2>
-        </div>
-    </section>
-
-    <section id="contact" style="padding: 80px 0; background: #f9f9f9;">
-        <div class="container">
-            <h2 class="section-title">Contact (À venir)</h2>
+            <h2 class="section-title">Me Contacter</h2>
+            <div class="contact-wrapper">
+                <form class="contact-form" action="mailto:nolhan.biblocque@example.com" method="post" enctype="text/plain">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Nom</label>
+                            <input type="text" id="name" name="name" placeholder="Votre nom" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="Votre email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Sujet</label>
+                        <input type="text" id="subject" name="subject" placeholder="Sujet du message" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="6" placeholder="Votre message..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary block-btn">Envoyer le message</button>
+                </form>
+            </div>
         </div>
     </section>
 
     <footer>
         <div class="container footer-container">
-            <p>&copy; 2026 Mon Portfolio. Tous droits réservés.</p>
+            <p>&copy; 2026 Nolhan Biblocque. Tous droits réservés.</p>
             <div class="footer-links">
-                <a href="#">GitHub</a>
-                <a href="#">Contact</a>
+                <a href="https://github.com/Hextaz" target="_blank">GitHub</a>
+                <a href="https://www.linkedin.com/in/nolhan-biblocque-7615362aa" target="_blank">LinkedIn</a>
+                <a href="#contact">Contact</a>
             </div>
         </div>
     </footer>

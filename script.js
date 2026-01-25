@@ -2,23 +2,38 @@
 const projectsData = [
     {
         id: 1,
-        title: "Plateforme E-commerce Eco-responsable",
-        description: "Développement complet d'une marketplace dédiée aux produits reconditionnés. Ce projet visait à offrir une expérience d'achat fluide tout en gérant un catalogue complexe de produits uniques. J'ai conçu l'architecture technique pour qu'elle soit évolutive et maintenable. \n\nPreuve de compétences : Pour la partie 'Réaliser', j'ai développé l'intégralité du front-end en HTML/CSS/JS modulaire. Concernant la compétence 'Gérer', j'ai modélisé et implémenté la base de données SQL pour assurer une gestion des stocks en temps réel sans conflit de commandes.",
-        skills: ["realiser", "gerer"],
+        title: "Site E-commerce (Agile)",
+        description: "Développement d'un site e-commerce complet en équipe de 5 étudiants, simulant une relation client/fournisseur réelle. Nous avons utilisé la méthode Agile (Sprints, Retours clients) pour livrer le produit.<br><br>Preuve de compétences :<br>- <strong>Réaliser</strong> : Développement backend en PHP natif et frontend sans framework.<br>- <strong>Administrer</strong> : Configuration de l'environnement serveur et déploiement.<br>- <strong>Gérer</strong> : Conception et implémentation de la base de données MySQL.<br>- <strong>Conduire</strong> : Gestion de projet agile, planification des sprints.<br>- <strong>Collaborer</strong> : Travail d'équipe, réunions client et répartition des tâches.",
+        skills: ["realiser", "administrer", "gerer", "conduire", "collaborer"],
         images: [
-            "https://via.placeholder.com/800x400?text=Homepage+E-commerce",
-            "https://via.placeholder.com/800x400?text=Catalogue+Produits",
-            "https://via.placeholder.com/800x400?text=Schema+Base+de+Donnees"
+            "assets/siteEcommerce/index.png",
+            "assets/siteEcommerce/dashboard.png",
+            "assets/siteEcommerce/login.png",
+            "assets/siteEcommerce/vsCode.png"
         ]
     },
     {
         id: 2,
-        title: "Déploiement d'Infrastructure Sécurisée",
-        description: "Mise en place d'une infrastructure réseau complète pour une PME fictive. L'objectif était de sécuriser les échanges de données et d'assurer la haute disponibilité des services internes. \n\nPreuve de compétences : En lien avec 'Administrer', j'ai configuré les serveurs Linux et les pare-feux. Pour 'Optimiser', j'ai analysé les flux réseaux pour réduire la latence de 30% lors des pics de charge.",
-        skills: ["administrer", "optimiser"],
+        title: "Alternance - Backend Laravel",
+        description: "Développement backend d'une application web sous Laravel en respectant une architecture hexagonale afin d'optimiser le code et d'assurer sa maintenabilité sur le long terme.<br><br>Preuve de compétences :<br>- <strong>Réaliser</strong> : Création des modules d'inscription, d'abonnement, système d'OTP (Mail/SMS) et Social Login (Google).<br>- <strong>Optimiser</strong> : Mise en oeuvre de l'architecture hexagonale pour un code découplé et performant.<br>- <strong>Gérer</strong> : Manipulation avancée de la base de données via l'ORM Eloquent.<br>- <strong>Conduire</strong> : Développement rigoureux en conformité avec le cahier des charges.<br>- <strong>Collaborer</strong> : Intégration efficace dans l'équipe de développement.",
+        skills: ["realiser", "optimiser", "gerer", "conduire", "collaborer"],
         images: [
-            "https://via.placeholder.com/800x400?text=Architecture+Reseau",
-            "https://via.placeholder.com/800x400?text=Monitoring+Serveur"
+            "assets/alternance/architectureHexagonale.webp",
+            "assets/alternance/registration.png",
+            "assets/alternance/subscription.png"
+        ]
+    },
+    {
+        id: 3,
+        title: "Stage - Site Vitrine & Dashboard Admin",
+        description: "Réalisation complète d'un site vitrine avec espace d'administration pour un café/restaurant, en totale autonomie. Le projet inclut des outils sur-mesure pour faciliter la gestion quotidienne de l'établissement.<br><br>Preuve de compétences :<br>- <strong>Réaliser</strong> : Développement full-stack (Laravel/Filament), générateur d'affiches PDF/Image, planificateur de posts réseaux sociaux.<br>- <strong>Optimiser</strong> : Intégration de plugins de sécurité et optimisation structurelle (interface admin performante).<br>- <strong>Administrer</strong> : Sécurisation de l'application (authentification, rôles, protection contre les failles).<br>- <strong>Gérer</strong> : Conception de la base de données pour les événements, menus et publications programmées (CRUD complets).",
+        skills: ["realiser", "optimiser", "administrer", "gerer"],
+        images: [
+            "assets/stage/index.png",
+            "assets/stage/dashboard.png",
+            "assets/stage/createMenu.png",
+            "assets/stage/scheduledPosts.png",
+            "assets/stage/updateEvent.png"
         ]
     }
 ];
@@ -120,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function openModal(project) {
         // Remplir les infos
         modalTitle.textContent = project.title;
-        modalDesc.textContent = project.description;
+        modalDesc.innerHTML = project.description;
         
         // Remplir les liens compétences (Transitivité)
         modalSkillsContainer.innerHTML = '';
@@ -205,6 +220,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event Listeners Carrousel
     prevBtn.addEventListener('click', () => moveToSlide(currentSlideIndex - 1));
     nextBtn.addEventListener('click', () => moveToSlide(currentSlideIndex + 1));
+
+    // --- Transitivité : Interactivité des Skill Cards ---
+    const skillCards = document.querySelectorAll('.skill-card');
+    skillCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const skillFilter = card.getAttribute('data-skill');
+            
+            // Scroll fluide vers la section projets
+            const projectsSection = document.getElementById('projets');
+            if (projectsSection) {
+                projectsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            // Activer le filtre correspondant
+            const targetBtn = Array.from(filterBtns).find(btn => btn.getAttribute('data-filter') === skillFilter);
+            
+            if (targetBtn) {
+                // On ne clique que si le filtre n'est pas déjà actif
+                if (activeFilter !== skillFilter) {
+                    targetBtn.click();
+                }
+            }
+        });
+    });
 
     // Recalculer la position au redimensionnement
     window.addEventListener('resize', () => {
